@@ -19,6 +19,7 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency "activesupport"
+  spec.add_dependency "event_emitter-with_instance_listener"
 
   spec.add_development_dependency "activerecord"
   spec.add_development_dependency "sqlite3"
