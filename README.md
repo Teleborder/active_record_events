@@ -1,6 +1,6 @@
 # ActiveRecordEvents
 
-TODO: Write a gem description
+Listen to `create`, `update`, and `destroy` events for your ActiveRecord models.
 
 ## Installation
 
@@ -18,7 +18,38 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+include in ActiveRecord model
+
+```ruby
+class User < ActiveRecord::Base
+  include ActiveRecordEvents
+
+  # your model logic
+end
+```
+
+set up a listener on the Class
+
+```ruby
+User.instance_on :create do
+  puts self.name # writes the user's name property to stdout
+end
+```
+
+or on the model itself
+
+```ruby
+user = User.new
+user.on :create do
+  puts self.name # writes the user's name property to stdout
+end
+```
+
+and trigger the hook
+
+```ruby
+user.save!
+```
 
 ## Contributing
 
