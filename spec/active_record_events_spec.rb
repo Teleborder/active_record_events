@@ -55,4 +55,16 @@ describe "ActiveRecordEvents" do
     expect(name).to eq @user.name
   end
 
+  it "does not call listeners if the record is rolled back" do
+    User.instance_on(:create) do
+      self.name = "Jobs"
+    end
+    User.after_create do
+      raise "Some Exception"
+    end
+    @user.name = "Steve"
+    expect{ @user.save }.to raise_error
+    expect(@user.new_record?).to be true
+    expect(@user.name).to eq "Steve"
+  end
 end
